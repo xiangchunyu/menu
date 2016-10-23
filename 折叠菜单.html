@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>折叠菜单</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            list-style: none;
+        }
+        a{
+            text-decoration:none;
+        }
+        #menu{
+            width: 120px;
+            text-align: center;
+        }
+        #menu h2{
+            height: 40px;
+            background: palevioletred;
+            color: #ffffff;
+            line-height: 40px;
+            cursor: pointer;
+        }
+        #menu .main-menu{
+           /*border: 1px solid plum;*/
+        }
+        #menu .sub-menu{
+            display: none;
+        }
+        #menu .sub-menu li{
+            width: 120px;
+            height: 40px;
+            line-height: 40px;
+            background: plum;
+            border-bottom: 1px solid yellow;
+        }
+    </style>
+</head>
+<body>
+<ul id="menu">
+    <li class="main-menu">
+        <h2>管理区</h2>
+        <ul class="sub-menu">
+            <li>000</li>
+            <li>111</li>
+            <li>222</li>
+        </ul>
+
+    </li>
+    <li class="main-menu">
+        <h2 onselectstart="return false">交流区</h2> <!-- 阻止默认行为；-->
+        <ul class="sub-menu">
+            <li>000</li>
+            <li>111</li>
+            <li>222</li>
+        </ul>
+    </li>
+</ul>
+<!--<script>-->
+    <!--var oMenu = document.getElementById('menu');-->
+    <!--var aH2 = oMenu.getElementsByTagName('h2');-->
+    <!--var aSubMenu = oMenu.getElementsByTagName('ul');-->
+    <!--//var count=0;-->
+    <!--for(var i=0;i<aH2.length;i++){-->
+        <!--aH2[i].index=i;-->
+        <!--aH2[i].flag=1;-->
+        <!--aH2[i].onclick = function ()-->
+        <!--{-->
+                <!--if(this.flag == 1)-->
+                <!--{-->
+                <!--aSubMenu[this.index].style.display = 'block';-->
+                <!--this.flag=0;-->
+                <!--}-->
+                <!--else-->
+                <!--{-->
+                    <!--aSubMenu[this.index].style.display = 'none';-->
+                    <!--this.flag=1;-->
+                <!--}-->
+        <!--};-->
+        <!--}-->
+<!--</script>-->
+<script>
+    var oMenu = document.getElementById('menu');
+    var aLi = oMenu.getElementsByTagName('li');
+    for(var i=0;i<aLi.length;i++) {
+        aLi[i].flag=false;
+        if(aLi[i].className=='main-menu'){
+            aLi[i].onclick=function(){
+                if(this.flag){
+                   this.getElementsByTagName('ul')[0].style.display='block';
+                }
+                else{
+                    this.getElementsByTagName('ul')[0].style.display='none';
+                }
+                this.flag= !this.flag;
+            };
+        }
+    }
+</script>
+</body>
+</html>
