@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>切换容器内容</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            list-style: none;
+        }
+        .selected{
+            float: left;
+            height: 30px;
+            width: 120px;
+            margin-right: 10px;
+            background-color: aqua;
+            line-height: 30px;
+            text-align: center;
+            cursor: pointer;
+        }
+        #content{
+            clear: both;
+            width: 380px;
+            height: 100px;
+            background-color:lightblue;
+            border-top: solid;
+        }
+    </style>
+</head>
+<body>
+ <ul id="contenter">
+     <li class="selected">jquery</li>
+     <li class="selected">javascript</li>
+     <li class="selected">css</li>
+ </ul>
+ <div id="content"></div>
+ <script>
+     var oUl = document.getElementById("contenter");
+     var aLi = oUl.getElementsByTagName("li");
+     var oDiv = document.getElementById("content");
+     var data = ["111111","222222","333333"];
+     oDiv.innerHTML = data[0];
+     for(var i=0;i<aLi.length;i++)
+     {
+         aLi[i].index = i;
+         aLi[i].onclick = function(){
+             oDiv.innerHTML = data[this.index];
+         };
+     }
+ </script>
+</body>
+</html>
