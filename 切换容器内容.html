@@ -11,7 +11,7 @@
         ul{
             list-style: none;
         }
-        .selected{
+        #contenter li{
             float: left;
             height: 30px;
             width: 120px;
@@ -19,7 +19,12 @@
             background-color: aqua;
             line-height: 30px;
             text-align: center;
+            color: white;
             cursor: pointer;
+        }
+        #contenter .selected{
+            background-color: black;
+            color: white;
         }
         #content{
             clear: both;
@@ -33,20 +38,24 @@
 <body>
  <ul id="contenter">
      <li class="selected">jquery</li>
-     <li class="selected">javascript</li>
-     <li class="selected">css</li>
+     <li>javascript</li>
+     <li>css</li>
  </ul>
  <div id="content"></div>
  <script>
      var oUl = document.getElementById("contenter");
      var aLi = oUl.getElementsByTagName("li");
      var oDiv = document.getElementById("content");
-     var data = ["111111","222222","333333"];
+     var data =  ["111111","222222","333333"];
      oDiv.innerHTML = data[0];
+     var last=0;
      for(var i=0;i<aLi.length;i++)
      {
          aLi[i].index = i;
          aLi[i].onclick = function(){
+             aLi[last].className=" ";
+             this.className="selected";
+             last=this.index;
              oDiv.innerHTML = data[this.index];
          };
      }
