@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>切换容器内容2</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            list-style: none;
+        }
+        #contenter li{
+            float: left;
+            height: 30px;
+            width: 120px;
+            margin-right: 10px;
+            background-color: aqua;
+            line-height: 30px;
+            text-align: center;
+            color: white;
+            cursor: pointer;
+        }
+        #contenter .selected{
+            background-color: black;
+            color: white;
+        }
+        #content{
+            clear: both;
+            width: 380px;
+            height: 100px;
+            background-color:lightblue;
+            border-top: solid;
+        }
+        #content div{
+            display: none;
+        }
+        #content .selected{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+   <div>
+       <ul id="contenter">
+           <li class="selected">jia</li>
+           <li>script</li>
+           <li>css</li>
+       </ul>
+       <div id="content">
+           <div class="selected">111111</div>
+           <div>222222</div>
+           <div>333333</div>
+       </div>
+   </div>
+   <script>
+       var oUl = document.getElementById('contenter') ;
+       var aLi = oUl.getElementsByTagName('li');
+       var oDiv = document.getElementById('content');
+       var aDiv = oDiv.getElementsByTagName('div');
+       for(var i = 0;i<aLi.length;i++)
+       {
+           aLi[i].index = i;
+           aLi[i].onclick = function(){
+               for(var i=0;i<aLi.length;i++)
+               {
+                   aLi[i].className = "";
+                   aDiv[i].className = "";
+               }
+               this.className = "selected";
+               aDiv[this.index].className = "selected";
+           };
+       }
+   </script>
+</body>
+</html>
