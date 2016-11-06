@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>轮播图</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        img {
+            border: 0;
+            width: 400px;
+            height: 200px;
+        }
+
+        #contenter {
+            width: 400px;
+            height: 200px;
+            margin: 50px auto;
+            position: relative;
+        }
+
+        #nav {
+            position: absolute;
+            right: 8px;
+            bottom: 11px;
+            z-index: 9999;
+        }
+
+        #nav li {
+            float: left;
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            color: white;
+            background-color: black;
+            text-align: center;
+            line-height: 20px;
+            cursor: pointer;
+        }
+
+        #nav .selected {
+            background-color: orange;
+        }
+
+        #img a {
+            position: absolute;
+            left: 0;
+        }
+
+        #arrows {
+            position: absolute;
+            left: 10px;
+            bottom: 11px;
+            z-index: 9999;
+        }
+
+        #arrows span {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            color: white;
+            background-color: black;
+            text-align: center;
+            line-height: 20px;
+            float: left;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div id="contenter">
+    <ul id="nav">
+        <li class="selected">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <div id="img">
+        <a href="#"><img src="img/959477529.jpg"/></a>
+        <a href="#"><img src="img/beijing.jpg"/></a>
+        <a href="#"><img src="img/hudie.jpg"/></a>
+        <a href="#"><img src="img/mm.jpg"/></a>
+    </div>
+    <div id="arrows">
+        <span id="prev"> &lt; </span>
+        <span id="next"> &gt; </span>
+    </div>
+</div>
+<script src="jslib.js"></script>
+<script>
+    var oContenter = document.getElementById('contenter');
+    var oUl = document.getElementById('nav');
+    var aLi = oUl.getElementsByTagName('li');
+    var oImg = document.getElementById('img');
+    var aA = oImg.getElementsByTagName('a');
+    var oPre = document.getElementById('prev');
+    var oNex = document.getElementById('next');
+    var zindex = 4;
+    var show = 0;
+    for (var i = 0; i < aLi.length; i++) {
+        aLi[i].index = i;
+        aA[i].style.zIndex = aA.length - i;
+        aLi[i].onmouseover = function () {
+            if (this.index != show) {
+                change(this.index);
+                show = this.index;
+            }
+        };
+    }
+    oNex.onclick = function () {
+        show++;
+        show = show % aLi.length;
+        change(show);
+    };
+    oPre.onclick = function () {
+        show--;
+        show = (show + aLi.length) % aLi.length;
+        change(show);
+    };
+    function change(index) {
+        for (var i = 0; i < aLi.length; i++) {
+            aLi[i].className = '';
+        }
+        aLi[index].className = 'selected';
+       /* aA[index].style.opacity = 0;
+        aA[index].style.filter = "alpha(opacity = 0)";
+        aA[index].style.zIndex = ++zindex;
+        animate(aA[index], {opacity: 100});*/
+        var oMg = aA[index];
+        oMg.style.opacity = 0;
+        oMg.style.filter = "alpha(opacity = 0)";
+        oMg.style.zIndex = ++zindex;
+        animate(oMg, {opacity: 100});
+    }
+    var time;
+    function run(){
+        time = setInterval(function(){
+            oNex.onclick();
+        },2000);
+    }
+    run();
+    oContenter.onmouseover = function(){
+       clearInterval(time);
+    };
+    oContenter.onmouseout = function(){
+        run();
+    }
+</script>
+</body>
+</html>
+
+
+
