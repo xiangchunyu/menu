@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>横向滚动</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    #container {
+        border: 1px solid;
+        width: 400px;
+        height: 200px;
+        margin: 100px auto;
+        overflow: hidden;
+        position: relative;
+    }
+
+    #content {
+        width: 540px;
+        position:absolute;
+    }
+
+    #content li {
+        width: 120px;
+        height: 100px;
+        background-color: black;
+        color: white;
+        margin-right: 15px;
+        float: left;
+        font-size: 20px;
+        text-align: center;
+        line-height: 100px;
+    }
+
+    #next, #prev {
+        width: 50px;
+        height: 30px;
+        display: block;
+        float: left;
+        text-align: center;
+        line-height: 30px;
+        background-color: #cccccc;
+        color: #ffffff;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+
+    #arrows {
+        width: 120px;
+        height: 30px;
+        position: absolute;
+        left: 50%;
+        margin-left: -55px;
+        bottom: 25px;
+    }
+</style>
+<body>
+<div id="container">
+    <ul id="content">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <div id="arrows">
+        <span id="prev">向左</span>
+        <span id="next">向右</span>
+    </div>
+</div>
+<script>
+    var oUl = document.getElementById("content");
+    var oPre = document.getElementById("prev");
+    var oNex = document.getElementById("next");
+    var speed = 10;
+    oUl.innerHTML += oUl.innerHTML;
+    oUl.style.width = oUl.offsetWidth * 2 +"px";
+    setInterval(function(){
+        oUl.style.left = oUl.offsetLeft - speed + "px";
+        if(oUl.offsetLeft <= -oUl.offsetWidth / 2) {
+            oUl.style.left = 0;
+        }
+        if(oUl.offsetLeft > 0) {
+            oUl.style.left = -oUl.offsetWidth / 2 + "px";
+        }
+    },100);
+
+   oPre.onmouseover = oNex.onmouseover = function(){
+        if(this == oPre){
+            speed = 10;
+        }else{
+           speed = -10;
+        }
+    };
+</script>
+</body>
+</html>
