@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>折叠菜单</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            list-style: none;
+        }
+        a{
+            text-decoration:none;
+        }
+        #menu{
+            width: 120px;
+            text-align: center;
+        }
+        #menu h2{
+            height: 40px;
+            background: palevioletred;
+            color: #ffffff;
+            line-height: 40px;
+            cursor: pointer;/*鼠标移动到h3上面变成小手*/
+        }
+        #menu .main-menu{
+            /*border: 1px solid plum;*/
+        }
+        #menu .sub-menu{
+            display: none;
+        }
+        #menu .sub-menu li{
+            width: 120px;
+            height: 40px;
+            line-height: 40px;
+            background: plum;
+            border-bottom: 1px solid yellow;
+        }
+    </style>
+</head>
+<body>
+<ul id="menu">
+    <li class="main-menu">
+        <h2>管理区</h2>
+        <ul class="sub-menu">
+            <li>000</li>
+            <li>111</li>
+            <li>222</li>
+        </ul>
+
+    </li>
+    <li class="main-menu">
+        <h2 onselectstart="return false">交流区</h2> <!-- 阻止默认行为；-->
+        <ul class="sub-menu">
+            <li>000</li>
+            <li>111</li>
+            <li>222</li>
+        </ul>
+    </li>
+</ul>
+ <script>
+    var oMenu = document.getElementById("menu");
+    var aH2 = oMenu.getElementsByTagName("h2");
+    var bshow = false;
+    for(var i=0;i<aH2.length;i++) {
+        aH2[i].onclick = function () {
+            var oSubmenu = next(this);
+            if(oSubmenu){
+            if (oSubmenu.style.display == "block") {
+                oSubmenu.style.display = "none";
+            }
+            else{
+                next(this).style.display = "block";
+            }}
+            /*if (next(this).style.display == "none" || next(this).style.display == "") {
+                next(this).style.display = "block";
+            }
+            else{
+                next(this).style.display = "none";
+            }*/
+        };
+    }
+     function next(elem){
+         do{
+             elem = elem.nextSibling;/*当前对象的下一个兄弟*/
+         }while(elem && elem.nodeType != 1);
+         return elem;
+     }
+ </script>
+</body>
+</html>
