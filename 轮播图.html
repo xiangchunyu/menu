@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>轮播图</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            list-style: none;
+        }
+        a{
+            text-decoration: none;
+        }
+        img{
+            border: 0 ;
+            width: 400px;
+            height: 200px;
+        }
+        #contenter{
+            width: 400px;
+            height: 200px;
+            margin: 50px auto;
+            position: relative;
+        }
+        #nav{
+            position: absolute;
+            right:8px;
+            bottom:11px;
+        }
+       #nav li{
+           float: left;
+           width: 20px;
+           height: 20px;
+           margin-right: 10px;
+           color:white;
+           background-color:black;
+           text-align: center;
+           line-height: 20px;
+           cursor: pointer;
+       }
+        #nav li.select{
+            background-color: orange;
+        }
+        #img a{
+            display: none;
+        }
+       #img a.select{
+           display: block;
+       }
+       #arrows{
+           position:absolute;
+           left: 10px;
+           bottom:11px;
+       }
+        #arrows span{
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            color:white;
+            background-color:black;
+            text-align: center;
+            line-height: 20px;
+            float: left;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+   <div id="contenter">
+       <ul id="nav">
+           <li class="select">1</li>
+           <li>2</li>
+           <li>3</li>
+           <li>4</li>
+       </ul>
+       <div id="img">
+           <a href="#" class="select"><img src="img/959477529.jpg" /></a>
+           <a href="#"><img src="img/beijing.jpg" /></a>
+           <a href="#"><img src="img/hudie.jpg" /></a>
+           <a href="#"><img src="img/mm.jpg" /></a>
+       </div>
+       <div id="arrows">
+           <span id="prev"> &lt; </span>
+           <span id="next"> &gt; </span>
+       </div>
+   </div>
+       <script>
+        var oContenter = document.getElementById('contenter');
+        var oUl = document.getElementById('nav');
+        var  aLi = oUl.getElementsByTagName('li');
+        var oImg = document.getElementById('img');
+        var aA = oImg.getElementsByTagName('a');
+        var oPre = document.getElementById('prev');
+        var oNex = document.getElementById('next');
+        var show = 0;//当前显示的图片
+           for(var i=0;i<aLi.length;i++){
+                 aLi[i].index = i;
+                   aLi[i].onmouseover = function(){
+                       show = this.index;
+                    Imge(this.index);
+               };
+           }
+          oNex.onclick = function(){
+              show++;
+              show = show%aLi.length;
+              Imge(show);
+           };
+        oPre.onclick = function(){
+            show--;
+            show = (show+aLi.length)%aLi.length;
+            Imge(show);
+        };
+
+           function Imge(index){
+               for(var i=0;i<aLi.length;i++)
+               {
+                   aLi[i].className = '';
+                   aA[i].className = '';
+               }
+               aLi[index].className = 'select';
+               aA[index].className = 'select';
+           }
+        var time;
+        function run() {
+            time = setInterval(function () {
+                oNex.onclick();
+            }, 2000);
+        }
+        run();
+        oContenter.onmouseover = function(){
+            clearInterval(time);
+        };
+           oContenter.onmouseout = function(){
+               run();
+           };
+       </script>
+</body>
+</html>
+
+
+
