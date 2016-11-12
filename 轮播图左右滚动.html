@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>横向</title>
+    <style>
+        *{
+            margin: 0;
+            padding:0;
+        }
+        ul{
+            list-style: none;
+        }
+        a{
+            text-decoration: none;
+        }
+        img{
+            border: 0;
+            width: 400px;
+            height: 200px;
+        }
+        #container{
+            width: 400px;
+            height:200px ;
+            margin: 50px auto;
+            position: relative;
+            overflow: hidden;
+        }
+        #tab{
+            position: absolute;
+            bottom: 10px;
+            right: 5px;
+            z-index: 1;
+        }
+       #tab li{
+           width: 20px;
+           height: 20px;
+           line-height: 20px;
+           text-align: center;
+           margin-right: 10px;
+           color: white;
+           background-color: black;
+           float: left;
+           cursor: pointer;
+       }
+       #tab li.select{
+           background-color: orange;
+       }
+       #content{
+           width: 1600px;
+           height:200px;
+           position: absolute;
+           left:0;
+       }
+       #content img{
+           float:left;
+       }
+        #arrows span{
+            width: 20px;
+            height: 20px;
+            float: left;
+            background-color: black;
+            color: white;
+            line-height: 20px;
+            text-align: center;
+            margin-right: 10px;
+            cursor:pointer;
+        }
+        #arrows{
+            position: absolute;
+            left: 10px;
+            bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+  <div id="container">
+      <ul id="tab">
+          <li class="select">1</li>
+          <li>2</li>
+          <li>3</li>
+          <li>4</li>
+      </ul>
+      <div id="content">
+      <img src="img/959477529.jpg"/>
+      <img src="img/beijing.jpg"/>
+      <img src="img/hudie.jpg"/>
+      <img src="img/mm.jpg"/>
+      </div>
+      <div id="arrows">
+          <span id="prev"> &lt; </span>
+          <span id="next"> &gt; </span>
+      </div>
+  </div>
+  <script src="jslib.js"></script>
+  <script>
+      var oContainer = document.getElementById('container');
+      var oTab = document.getElementById('tab');
+      var aLi = oTab.getElementsByTagName('li');
+      var oContent = document.getElementById('content');
+      var aImg = oContent.getElementsByTagName('img');
+      var oPrev = document.getElementById('prev');
+      var oNext = document.getElementById('next');
+      var iImgWidth = aImg[0].offsetWidth;
+      var show = 0;
+      var oFirst = aImg[0].cloneNode();
+      oContent.appendChild(oFirst);
+      oContent.style.width = iImgWidth * aImg.length + 'px';
+
+      for(var i=0;i<aLi.length;i++)
+      {
+          aLi[i].index = i;
+          aLi[i].onmouseover = function(){
+              show = this.index;
+              changeImg(show);
+          };
+      }
+      oPrev.onclick = function(){
+          show--;
+          if(show == -1){
+              oContent.style.left = -iImgWidth*(aImg.length-1)+'px';
+              show = aImg.length-2;
+          }
+          changeImg(show);
+      }
+      oNext.onclick = function(){
+               show++;
+          if(show == aImg.length)
+          {
+              oContent.style.left = 0;
+              show = 1;
+          }
+          changeImg(show);
+      };
+     function changeImg(index){
+         show = index;
+         for(var i=0;i<aLi.length;i++){
+             aLi[i].className = '';
+         }
+         aLi[show ==  aLi.length? 0: show ].className = 'select';
+         animate(oContent,{
+             left: -index*iImgWidth
+         });
+  }
+      var time;
+      function run(){
+           time = setInterval(function(){
+              oNext.onclick();
+          },1000)
+      }
+      run();
+      oContainer.onmouseover = function(){
+          clearInterval(time);
+      };
+      oContainer.onmouseout = function(){
+          run();
+      };
+  </script>
+</body>
+</html>
