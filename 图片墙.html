@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>照片墙</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        img{
+            border:0;
+            width: 130px;
+            height: 130px;
+            margin: 10px;
+        }
+        #container{
+            width: 470px;
+            margin: 0 auto;
+        }
+        .collide{
+            border: 1px solid #ff0000;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <img src="img/1.jpg"/>
+    <img src="img/2.jpg"/>
+    <img src="img/3.jpg"/>
+    <img src="img/4.jpg"/>
+    <img src="img/5.jpg"/>
+    <img src="img/6.jpg"/>
+    <img src="img/7.jpg"/>
+    <img src="img/8.jpg"/>
+    <img src="img/9.jpg"/>
+</div>
+<script src="jslib.js"></script>
+<script>
+    var oContainer = document.getElementById('container');
+    var aImg = oContainer.getElementsByTagName('img');
+    var zindex = 1;
+    var aCollide = [];
+    for (var i = 0; i < aImg.length; i++) {
+        aImg[i].style.left = aImg[i].offsetLeft + 'px';
+        aImg[i].style.top = aImg[i].offsetTop + 'px';
+        aImg[i].pos = {
+            left : aImg[i].offsetLeft,
+            top : aImg[i].offsetTop
+        };
+    }
+    for (var i = 0; i < aImg.length; i++) {
+        aImg[i].style.position = 'absolute';
+        aImg[i].style.margin = 0;
+    }
+    for (var i = 0; i < aImg.length; i++) {
+        drag(aImg[i]);
+    }
+
+    function drag(elem) {
+        var iDisx = iDisy = 0;
+        var near;
+        elem.onmousedown = function (e) {
+            e = e || window.event;//能力检测
+            elem.style.zIndex = zindex++;
+            iDisx = e.clientX - elem.offsetLeft;
+            iDisy = e.clientY - elem.offsetTop;
+            document.onmousemove = function (e) {
+                e = e || window.event();
+                var iLeft = e.clientX - iDisx;//e.clientX可以获取鼠标距离浏览器左边的距离
+                var iTop = e.clientY - iDisy;
+
+                elem.style.left = iLeft + 'px';
+                elem.style.top = iTop + 'px';
+
+                for (var i = 0; i < aImg.length; i++){
+                    if(elem == aImg[i]){
+                        continue;
+                    }
+                    aImg[i].className = '';
+                    var test = meetText(elem,aImg[i]);
+                    if(test){
+                        //aImg[i].className = 'collide';
+                        aCollide.push(aImg[i]);
+                    }
+                }
+                if(aCollide.length>0){
+                    near = getNearest(elem,aCollide);
+                    near.className = 'collide';
+                    aCollide = [];
+                }
+                else
+                    near = null;
+                return false;
+            };
+            document.onmouseup = function () {
+                document.onmousemove = null;
+                document.onmouseup = null;
+                if(near){
+                    animate(elem, near.pos);
+                    animate(near, elem.pos);
+                    var tempos =elem.pos;
+                    elem.pos = near.pos;
+                    near.pos = tempos;
+                    near.className = '';
+                }
+                else
+                    animate(elem,elem.pos);
+            };
+        };
+    }
+    function meetText(elem ,target){
+        var iElemT = elem.offsetTop,
+                iElemB = iElemT + elem.offsetHeight,
+                iElemL = elem.offsetLeft,
+                iElemR = iElemL + elem.offsetWidth;
+        var iTargetT = target.offsetTop,
+                iTargetB =  iTargetT + target.offsetHeight,
+                iTargetL = target.offsetLeft,
+                iTargetR = iTargetL + target.offsetWidth;
+        if(iElemR < iTargetL || iElemL > iTargetR || iElemB < iTargetT || iElemT > iTargetB){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    function getDist(elem,target){
+        var top = elem.offsetTop - target.offsetTop;
+        var left = elem.offsetLeft - target.offsetLeft;
+        var a = top*top + left*left;
+        return a;
+    }
+    function getNearest(elem,aCollide){
+        var min = 999999999;
+        var oMin;
+        for(var i = 0;i<aCollide.length;i++){
+            if(min>getDist(elem,aCollide[i])){
+                min = getDist(elem,aCollide[i]);
+                oMin = aCollide[i];
+            }
+        }
+        return oMin;
+    }
+</script>
+</body>
+</html>
