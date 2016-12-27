@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>轮播图</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        img{
+            border: 0;
+        }
+        #container{
+            width: 480px;
+            height: 470px;
+            margin: 0 auto;
+            margin-top: 50px;
+            overflow: hidden;
+            position: relative;
+        }
+        #big-pig{
+            position: relative;
+        }
+        #big-pig img{
+            width: 480px;
+            height: 350px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        #prev,#next{
+            width: 60px;
+            height: 60px;
+            position: absolute;
+            /*top: 50%;*/
+            /*margin-top: -30px;*/
+            margin-top: 160px;
+            background-image: url("btn.gif");
+            background-repeat: no-repeat;
+            z-index: 8;
+            cursor: pointer;
+            /*display: none;*/
+            opacity: 0;
+            filter:alpha(opacity=0);
+        }
+        #prev{
+            left: 10px;
+            background-position: 0 0;
+        }
+        #next{
+            right: 10px;
+            background-position: 0 -60px;
+        }
+        #info{
+            width: 470px;
+            height: 20px;
+            background-color: black;
+            opacity: 0.7;
+            filter: alpha(opacity=70);
+            position: absolute;
+            top: 330px;
+            z-index: 8;
+            color:white;
+            line-height: 20px;
+            padding-right:10px ;
+        }
+        #info span{
+            float: right;
+        }
+        #small-pig{
+            width: 976px;
+            height: 120px;
+            background-color: #cccccc;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+        }
+        #small-pig img{
+            width: 108px;
+            height:100px ;
+            padding: 10px 0 10px 10px;
+            float: left;
+            cursor: pointer;
+        }
+        #small-pig .selected{
+            opacity: 1;
+            filter: alpha(opacity=100);
+        }
+        #small-pig .small-opacity{
+            opacity: .3;
+            filter: alpha(opacity=30);
+        }
+    </style>
+</head>
+<body>
+   <div id="container">
+       <div id="big-pig">
+           <img src="1.jpg" alt="" style="z-index: 8"/>
+           <img src="2.jpg" alt="" style="z-index: 7"/>
+           <img src="3.jpg" alt="" style="z-index: 6"/>
+           <img src="4.jpg" alt="" style="z-index: 5"/>
+           <img src="5.jpg" alt="" style="z-index: 4"/>
+           <img src="6.jpg" alt="" style="z-index: 3"/>
+           <img src="7.jpg" alt="" style="z-index: 2"/>
+           <img src="8.jpg" alt="" style="z-index: 1"/>
+               <span id="prev"></span>
+               <span id="next"></span>
+           <div id="info">
+               <span id="total-page">/8</span>
+               <span id="current-page">1</span>
+           </div>
+       </div>
+       <div id="small-pig">
+           <img src="1.jpg" alt=""/>
+           <img src="2.jpg" alt=""/>
+           <img src="3.jpg" alt=""/>
+           <img src="4.jpg" alt=""/>
+           <img src="5.jpg" alt=""/>
+           <img src="6.jpg" alt=""/>
+           <img src="7.jpg" alt=""/>
+           <img src="8.jpg" alt=""/>
+       </div>
+   </div>
+</body>
+<script src="jslib.js"></script>
+<script>
+    var oBigPig = document.getElementById('big-pig');
+    var aBigPig = oBigPig.getElementsByTagName('img');
+    var oSmallPig = document.getElementById('small-pig');
+    var aSmallPig = oSmallPig.getElementsByTagName('img');
+    var oCurrentPage = document.getElementById('current-page');
+    var aPrev = document.getElementById('prev');
+    var aNext = document.getElementById('next');
+    var oInfo = document.getElementById('info');
+    var oContent  = document.getElementById('container');
+    var iNow = 0;
+    var zindex = 9;
+    var timer;
+    for(var i=0;i<aSmallPig.length;i++){
+        aSmallPig[i].className = 'small-opacity';
+    }
+   aSmallPig[iNow].className = 'selected';
+    aPrev.onmouseover = aNext.onmouseover = function(){
+        animate(this,{
+            opacity:100
+        });
+    };
+    aPrev.onmouseout = aNext.onmouseout = function(){
+        animate(this,{
+            opacity:0
+        });
+    };
+    aPrev.onclick = aNext.onclick = function(){
+        if(this == aNext){
+            iNow++;
+            if(iNow == aSmallPig.length)
+            iNow = 0;
+        }else{
+            iNow--;
+            if(iNow == -1)
+                iNow =aSmallPig.length-1;
+        }
+       changeImg(iNow);
+    };
+    for(var i=0;i<aSmallPig.length;i++){
+        aSmallPig[i].index = i;
+        aSmallPig[i].onmouseover = function(){
+            animate(this,{
+               opacity:100
+            });
+
+        };
+        aSmallPig[i].onmouseout = function(){
+            if(this.index!=iNow) {
+                animate(this, {
+                    opacity: 30
+                });
+            }
+        };
+       aSmallPig[i].onclick = function(){
+           if(this.index!=iNow){
+            changeImg(this.index);
+           }
+        };
+    }
+    run();
+    oContent.onmouseover = function(){
+        clearInterval(timer);
+    };
+    oContent.onmouseout = function(){
+        run();
+    };
+    function run(){
+        timer = setInterval(function(){
+            aNext.onclick();
+        },1000);
+    }
+    function changeImg(index){
+        iNow = index;
+        aBigPig[index].style.opacity = 0;
+        aBigPig[index].style.filter = 'alpha(opacity=0)';
+        aBigPig[index].style.zIndex = zindex++;
+        animate(aBigPig[index],{
+                opacity : 100
+        });
+        aPrev.style.zIndex = aNext.style.zIndex = oInfo.style.zIndex = zindex++;
+        oCurrentPage.innerHTML = index+1;
+        for(var i=0;i<aSmallPig.length;i++){
+            aSmallPig[i].style.opacity = 0.3;
+            aSmallPig[i].style.filter = 'alpha(opacity=30)';
+        }
+        aSmallPig[iNow].style.opacity = 1;
+        aSmallPig[iNow].style.filter = 'alpha(opacity=100)';
+        iLeft = 0;
+        if(index ==0 || index ==1){
+            iLeft = 0;
+        }else if(index ==aSmallPig.length-1 || index ==aSmallPig.length-2){
+            iLeft = aSmallPig.length/2;
+        }else{
+            iLeft = index -1;
+        }
+        animate(oSmallPig,{
+           left: -iLeft * aSmallPig[0].offsetWidth
+        })
+    }
+</script>
+</html>
