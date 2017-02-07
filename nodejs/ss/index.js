@@ -10,4 +10,4 @@ http.createServer(function(req,res){
     var indexPage = fs.readFileSync(readpath);
     res.end(indexPage);
 }).listen(3000);
-console.log('server start');
+console.log('server  start');
