@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        img{
+            border: 1px solid #ffffff;
+            width: 500px;
+            height: 340px;
+        }
+        #container{
+            width: 500px;
+            height: 340px;
+            margin: 100px auto;
+            position: relative;
+            overflow: hidden;
+            display: -webkit-flex;
+            display: flex;
+        }
+        .img{
+            float: left;
+            width: 100px;
+            height: 340px;
+            overflow: hidden;
+            position: relative;
+            transition: all 2s ease;
+        }
+        .dcri{
+            width: 500px;
+            height: 25px;
+            background-color: black;
+            opacity: .5;
+            position: absolute;
+            bottom: 0;
+            color: #ffffff;
+            padding-left: 10px;
+            line-height: 25px;
+            font-size: 16px;
+        }
+        #container:hover .img{
+            width: 80px;
+        }
+        #container .img:hover{
+            width: 420px;
+        }
+    </style>
+</head>
+<body>
+   <div id="container">
+       <div id="img1" class="img">
+         <img src="4.jpg" alt="" />
+         <div class="dcri" >描述1</div>
+       </div>
+       <div id="img2" class="img">
+           <img src="5.jpg" alt="" />
+           <div class="dcri">描述2</div>
+       </div>
+       <div id="img3" class="img">
+           <img src="6.jpg" alt=""/>
+           <div class="dcri">描述3</div>
+       </div>
+       <div id="img4" class="img">
+           <img src="7.jpg" alt=""/>
+           <div class="dcri">描述4</div>
+       </div>
+       <div id="img5" class="img">
+           <img src="8.jpg" alt=""/>
+           <div class="dcri">描述5</div>
+       </div>
+   </div>
+</body>
+</html>
