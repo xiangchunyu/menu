@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>旋转的照片墙</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html{
+            width: 100%;
+            height: 100%;
+        }
+        body{
+            width: 100%;
+            height: 100%;
+            background-image: url("img/bg.jpg");
+        }
+        #container .img{
+            width: 125px;
+            height: 125px;
+            border: 4px solid #ffffff;
+            box-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+            position: absolute;
+            top:-500px;
+            left:-500px;
+            transition: all 1s ease-in-out;
+            cursor: pointer;
+        }
+        div span{
+            width: 100%;
+            height: 100%;
+            background-repeat: no-repeat;
+            transition: all 1s ease-in-out;
+            display: block;
+            opacity: 0;
+        }
+        #prev,#next{
+            width: 60px;
+            height: 60px;
+            position: absolute;
+            top: 50%;
+            margin-top: -30px;
+            background-color: #ffffff;
+            background-position: center;
+            border-radius: 10px;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            display: none;
+            opacity: 0.8;
+        }
+        #prev{
+            left: -20px;
+            background-image: url("img/prev.png");
+        }
+        #next{
+            right: -20px;
+            background-image: url("img/next.png");
+        }
+    </style>
+</head>
+<body>
+  <div id="container"></div>
+  <span id="prev"></span>
+  <span id="next"></span>
+  <script>
+      (function(){
+          var ROW = 4,COL = 6,NUM = ROW * COL,smallWidth = 125,smallHeight = 125,bigImgWidth = 750,bigImgHeight = 500;
+          var oContainer = document.getElementById('container');
+          var count = 0;
+          for(var i=0;i<NUM;i++){
+              var oImgThumb = new Image();
+              oImgThumb.onload = function(){
+                  count++;
+                  if(count==NUM*2){
+                      loadSeccess();
+                  }
+              };
+              oImgThumb.src = "img/thumbs/"+(i+1)+".jpg";
+              var oImgBig = new Image();
+              oImgBig.onload = function(){
+                  count++;
+                  if(count==NUM*2){
+                      loadSeccess();
+                  }
+              };
+              oImgBig.src = "img/"+(i+1)+".jpg";
+          }
+          function loadSeccess() {
+              var index = 0;
+              for (var i = 0; i < ROW; i++) {
+                  for (var j = 0; j < COL; j++) {
+                      index++;
+                      var rot = (Math.random() * 40 - 20);
+                      var oDiv = document.createElement('div');
+                      oDiv.style.backgroundImage = "url(img/thumbs/" + index + ".jpg)";
+                      oDiv.className = 'img';
+                      oDiv.index = index;
+                      oDiv.rot = rot;
+                      oDiv.pos = {
+                          row: i,
+                          col: j
+                      };
+                      oDiv.innerHTML = "<span></span>";
+                      oContainer.appendChild(oDiv);
+                  }
+              }
+              var fImg = NUM;
+              var aDiv = oContainer.getElementsByTagName('div');
+              var divWidth = aDiv[0].offsetWidth;
+              var divHeight = aDiv[0].offsetHeight;
+              var winWidth = document.body.clientWidth;
+              var winHeight = document.body.clientHeight;
+              var rowGap = (winHeight - divHeight * ROW) / (ROW + 1);
+              var colGap = (winWidth - divWidth * COL) / (COL + 1);
+              var posWidth = divWidth + colGap;
+              var posHeight = divHeight + rowGap;
+              var oPrev = document.getElementById('prev');
+              var onext = document.getElementById('next');
+              var show = 0;
+              var timer = setInterval(function () {
+                  fImg--;
+                  aDiv[fImg].style.left = aDiv[fImg].pos.col * posWidth + colGap + 'px';
+                  aDiv[fImg].style.top = aDiv[fImg].pos.row * posHeight + rowGap + 'px';
+                  aDiv[fImg].style.transform = "rotate(" + aDiv[fImg].rot + "deg)";
+                  if (fImg == 0) {
+                      clearInterval(timer);
+                  }
+              }, 100);
+              var flag = false;
+    //          for (var i = 0; i < NUM; i++) {
+                  oContainer.onclick = function (e) {
+                      var target = e.target || window.event.srcElement;
+                  if(target.className != 'img'){
+                      target = target.parentNode;
+                  }
+                      clearInterval(timer);
+                     if(flag){
+                         for(var j=0;j<NUM;j++){
+                                var Span = aDiv[j].getElementsByTagName('span')[0];
+                                aDiv[j].style.border = "4px solid #fff";
+                                //aDiv[j].style.boxShadow = "2px 2px 2px rgba(0,0,0,0.5)";
+                                aDiv[j].style.left =aDiv[j].pos.col*posWidth + colGap + 'px';
+                                aDiv[j].style.top = aDiv[j].pos.row*posHeight + rowGap + 'px';
+                                aDiv[j].style.transform = "rotate("+aDiv[j].rot+"deg)";
+                              //  Span.style.backgroundImage = "url(img/thumbs/"+aDiv[j].index+".jpg)";
+                                Span.style.opacity = 0;
+                             onext.style.display = oPrev.style.display = 'none';
+                            }
+                     }else{
+                         show = target.index;
+                         for(var j=0;j<NUM;j++){
+                             aDiv[j].
+                                     style.border = "2px solid #fff";
+                             aDiv[j].style.left = ( winWidth - bigImgWidth) / 2 + (divWidth-8)*aDiv[j].pos.col + 'px';
+                             aDiv[j].style.top = ( winHeight - bigImgHeight) /2 + (divHeight-8)*aDiv[j].pos.row + 'px';
+                             aDiv[j].style.transform = "rotate(0deg)";
+                                 var oSpan = aDiv[j].getElementsByTagName('span')[0];
+                                 oSpan.style.backgroundImage = "url(img/"+ target.index+".jpg)";
+                                 var x = -smallWidth * aDiv[j].pos.col;
+                                 var y = -smallHeight * aDiv[j].pos.row;
+                                 oSpan.style.backgroundPosition = x + 'px ' + y + 'px';
+                                 oSpan.style.opacity = 1;
+                             onext.style.display = oPrev.style.display = 'block';
+                             }
+                         }
+                     flag = !flag;
+                     };
+
+            //    }
+              onext.onclick = oPrev.onclick  = function(){
+                  if(this == onext) {
+                      show++;
+                      if (show == aDiv.length + 1) {
+                          show = 1;
+                      }
+                  }else{
+                      show--;
+                      if(show == 0){
+                          show = aDiv.length;
+                      }
+                  }
+                  var arr = [];
+                  for(var i=0;i<NUM;i++){
+                      arr.push(i);
+                  }
+                  arr.sort(function(){
+                      return Math.random() - 0.5;
+                  });
+                  var time = setInterval(function(){
+                      var item = arr.pop();
+                      var oSpan = aDiv[item].getElementsByTagName('span')[0];
+                      oSpan.style.backgroundImage = "url(img/" + show + ".jpg)";
+                      if(arr.length == 0){
+                          clearInterval(time);
+                      }
+                  },30);
+              };
+          }
+      })();
+  </script>
+</body>
+</html>
