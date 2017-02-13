@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>弹出层</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .dialog-container{
+            background: #cccccc;
+            position: absolute;
+            top: 30px;
+            bottom:0;
+            left:0;
+            right:0;
+        }
+        .dialog-mask{
+            width: 100%;
+            height: 100%;
+        }
+        .dialog-box{
+            width: 400px;
+            height: 300px;
+            background: #ffffff;
+            position: absolute;
+            top:50%;
+            left:50%;
+            margin-left: -200px;
+            margin-top: -150px;
+        }
+        .dialog-title{
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            background: #000;
+            color: #ffffff;
+        }
+        .dialog-title-item{
+          float: left;
+        }
+        .dialog-title-close{
+            float: right;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<input type="button" id="open" value="open"/>
+<script src="../one/require.js" data-main="index"></script>
+</body>
+</html>
