@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>轮播图</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        img{
+            border: 0;
+        }
+        #container{
+            width: 400px;
+            height: 250px;
+            position:absolute;
+            top: 10px;
+            left: 10px;
+        }
+        #img img{
+            width: 100%;
+            height: 100%;
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        ul{
+            list-style: none;
+            position: absolute;
+            right: 20px;
+            bottom: 10px;
+        }
+        li{
+            width: 15px;
+            height: 15px;
+            background: #000;
+            margin-left: 5px;
+            float: left;
+            color: #ffffff;
+            text-align: center;
+            line-height: 15px;
+            cursor: pointer;
+        }
+        span{
+            width: 20px;
+            height: 20px;
+            background: #000;
+            color: #ffffff;
+            text-align: center;
+            line-height: 20px;
+            position: absolute;
+            cursor: pointer;
+        }
+        #prev{
+            left: 15px;
+            bottom: 10px;
+        }
+        #next{
+            left: 40px;
+            bottom: 10px;
+        }
+        .selected{
+            background-color: #FBA60A;
+        }
+    </style>
+</head>
+<body>
+
+  <script src="../one/require.js" data-main="index"></script>
+</body>
+</html>
