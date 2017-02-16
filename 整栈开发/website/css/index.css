@@ -1,0 +1,189 @@
+/*banner样式开始*/
+#banner{
+    height: 460px;
+    /*width: 100%;*/
+    background: url("../img/bannerbg.png") repeat-x;
+}
+#banner .wrapper{
+    position: relative;
+}
+#banner span.arrow{
+    width: 29px;
+    height: 50px;
+    position: absolute;
+    top: 50%;
+    margin-top: -25px;
+    cursor: pointer;
+}
+#banner .prev{
+    background: url("../img/sprite.png") no-repeat 0 -14px;
+    left: 0;
+}
+#banner .next{
+    background: url("../img/sprite.png") no-repeat -29px -14px;
+    right: 0;
+}
+#roller-one{
+    position: absolute;
+    width: 2984px;
+    height: 412px;
+    left:0;
+    transition: all 1s ease;
+}
+#roller{
+    position: absolute;
+    top: 30px;
+    left: 114px;
+    width: 746px;
+    height: 412px;
+    overflow: hidden;
+}
+#roller img{
+    float: left;
+}
+/*banner样式结束*/
+
+
+/*news样式开始*/
+#news{
+    height: 492px;
+}
+#news .new{
+    width: 287px;
+    height: 492px;
+    float: left;
+    margin: 0 25px 0 22px;
+    position: relative;
+}
+#news .one{
+    width: 150px;
+    height: 28px;
+    text-align: center;
+    position: absolute;
+    font-size: 23px;
+    left: 50%;
+    margin-left: -75px;
+    top:88px;
+}
+#news .two{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    left: 50%;
+    margin-left: -50px;
+    top:144px;
+}
+#news .three{
+    width: 287px;
+    height: 90px;
+    position: absolute;
+    left: 50%;
+    margin-left: -144px;
+    overflow: hidden;
+    top: 268px;
+}
+#news .four{
+    width: 78px;
+    height: 12px;
+    position: absolute;
+    left: 50%;
+    margin-left: -39px;
+    top:390px;
+    text-align: center;
+    line-height: 12px;
+}
+#news .four a{
+    font-size: 17px;
+    color: #00aeff;
+}
+/*news样式结束*/
+
+/*work样式开始*/
+#work{
+    height: 500px;
+    background: #e2e7ed;
+}
+#work span{
+    /*width: 130px;*/
+    /*height: 24px;*/
+    padding-top: 30px;
+    color: #626262;
+    display: block;
+    font-size: 26px;
+}
+#work-img{
+    margin-top: 18px;
+}
+#work-img img{
+    width: 250px;
+    height: 200px;
+   float: left;
+}
+/*work样式结束*/
+
+/*clients样式开始*/
+#clients{
+   height: 154px;
+}
+#client-img{
+    position: relative;
+    width: 100%;
+    height: 100px;
+}
+#word{
+    padding-top: 30px;
+    color: #626262;
+    display: block;
+    font-size: 26px;
+}
+#client-img span.clients{
+    width: 24px;
+    height: 40px;
+    position: absolute;
+    top: 50%;
+    margin-top:-20px ;
+    cursor: pointer;
+}
+#client-img img{
+    position:absolute;
+    top: 50%;
+}
+#img-one{
+    left: 82px;
+    margin-top: -26px;
+}
+#img-two{
+    left: 254px;
+    margin-top: -16px;
+}
+#img-three{
+    left: 510px;
+    margin-top: -16px;
+}
+#img-four{
+    left: 736px;
+    margin-top: -25px;
+}
+#client-img span.prev{
+    background: url("../img/sprite.png") no-repeat -58px -19px;
+    left: 0;
+}
+#client-img span.next{
+    background: url("../img/sprite.png") no-repeat -82px -19px;
+    right: 0;
+}
+/*clients样式结束*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
