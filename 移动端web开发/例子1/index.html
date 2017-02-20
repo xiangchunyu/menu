@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>海豹</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        h3{
+            width: 960px;
+            height: 100px;
+            text-align: center;
+            margin: 30px auto;
+            line-height: 100px;
+            background: #ccc;
+        }
+        figure{
+            width: 960px;
+            margin: 0 auto;
+        }
+        figure img{
+            width: 100%;
+        }
+        section{
+            width: 960px;
+            margin: 0 auto;
+        }
+        #left{
+            width: 470px;
+            height: 300px;
+            float: left;
+            background: #00ff00;
+        }
+        #right{
+            width: 470px;
+            height: 300px;
+            float: right;
+            background: #ffff00;
+        }
+        #left,#right{
+            display: table;
+        }
+        section p{
+            text-align: center;
+            display: table-cell;
+            vertical-align: middle;
+        }
+        footer{
+            clear: both;
+        }
+
+        @media (max-width: 960px) {
+            h3{
+                width: 100%;
+            }
+            section{
+                width: 100%;
+            }
+            #left{
+                width: 63%;
+            }
+            #right{
+                width: 34%;
+            }
+            figure{
+                width: 100%;
+            }
+        }
+        @media (max-width: 480px) {
+            #left,#right{
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+   <header>
+       <h3>页头</h3>
+   </header>
+   <nav>
+       <h3>导航</h3>
+   </nav>
+   <figure>
+       <img src="../../css3/2.jpg"/>
+   </figure>
+   <section>
+       <div id="left">
+           <p>sd fghjj hsdg sjbc sd ijf ihfu gg yguaj dshid jfosdf ghjjhs dgsjbc sdijf ihfu ggygu ajds hidjfo sdfghj jhsdgs jbcsdij fihfuggyg uajdsh idjfoy guajdsh idjfoygua jdshidj foygua jdshid jfoyguaj dshidjf oygua jdshid jfoygu ajdshid jfoygua jdshi djfo</p>
+       </div>
+       <div id="right">
+           <p>sdfgh jjhs dgs bcs dijf ih fug gyg uajds hid jfos dfgh jjhsdg sjbcsdi jfihf uggy gua jdshi djf osd fghj jhs dgsjb csdijf ihfu ggyg uajd s hidj foygu ajdshid jfoygua jdsh idjfo yguaj dshid jfo</p>
+       </div>
+   </section>
+   <footer>
+       <h3>页尾</h3>
+   </footer>
+</body>
+</html>
